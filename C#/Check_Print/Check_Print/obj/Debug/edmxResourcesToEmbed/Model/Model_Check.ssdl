@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CHECK_PRINTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="Hesab_Id" />
+    </Key>
+    <Property Name="Hesab_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Bank_id" Type="int" />
+    <Property Name="Hesab_Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Hesab_Number" Type="nvarchar" MaxLength="50" />
+    <Property Name="Branch_Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Branch_Tel" Type="nvarchar" MaxLength="50" />
+    <Property Name="Branch_Adress" Type="nvarchar" MaxLength="50" />
+    <Property Name="Meli_Code" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Bank">
+    <Key>
+      <PropertyRef Name="Bank_Id" />
+    </Key>
+    <Property Name="Bank_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Bank_Name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Check">
+    <Key>
+      <PropertyRef Name="Check_Id" />
+    </Key>
+    <Property Name="Check_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DC_Id" Type="int" />
+    <Property Name="Status_Id" Type="int" />
+    <Property Name="Serial" Type="int" />
+    <Property Name="SDate" Type="nvarchar" MaxLength="50" />
+    <Property Name="RDate" Type="nvarchar" MaxLength="50" />
+    <Property Name="Darvajh" Type="nvarchar" MaxLength="100" />
+    <Property Name="Mablagh" Type="int" />
+  </EntityType>
+  <EntityType Name="CheckDoc">
+    <Key>
+      <PropertyRef Name="Shc_Id" />
+    </Key>
+    <Property Name="Shc_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Shc-Doc" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="DastehCheck">
+    <Key>
+      <PropertyRef Name="DC_Id" />
+    </Key>
+    <Property Name="DC_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DC_GSerial" Type="nvarchar" MaxLength="50" />
+    <Property Name="DC_Hesab_Id" Type="int" />
+    <Property Name="DC_Start" Type="int" />
+    <Property Name="DC_End" Type="int" />
+    <Property Name="Print_Formate_Id" Type="int" />
+  </EntityType>
+  <EntityType Name="PrintFormat">
+    <Key>
+      <PropertyRef Name="PF_Id" />
+    </Key>
+    <Property Name="PF_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PF_Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Pf_Pic" Type="image" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'CHECK_PRINT.dbo.PrintFormatDimention' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="PrintFormatDimention">
+          <Property Name="Pfd_id" Type="int" />
+          <Property Name="Pfd_PF_id" Type="int" />
+          <Property Name="Pfd_Row" Type="int" />
+          <Property Name="Pfd_x" Type="int" />
+          <Property Name="Pfd_y" Type="int" />
+          <Property Name="Pfd_Valid" Type="bit" />
+          <Property Name="Pfd_Font" Type="nvarchar" MaxLength="50" />
+          <Property Name="Pfd_Size" Type="int" />
+        </EntityType>-->
+  <EntityType Name="Reciver">
+    <Key>
+      <PropertyRef Name="Riciver_Id" />
+    </Key>
+    <Property Name="Riciver_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Reciver_Name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="Stat_Id" />
+    </Key>
+    <Property Name="Stat_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Stat_Name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="User_Id" />
+    </Key>
+    <Property Name="User_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="User_name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Account_Bank1">
+    <End Role="Bank" Type="Self.Bank" Multiplicity="0..1" />
+    <End Role="Account" Type="Self.Account" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bank">
+        <PropertyRef Name="Bank_Id" />
+      </Principal>
+      <Dependent Role="Account">
+        <PropertyRef Name="Bank_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Check_DastehCheck">
+    <End Role="DastehCheck" Type="Self.DastehCheck" Multiplicity="0..1" />
+    <End Role="Check" Type="Self.Check" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DastehCheck">
+        <PropertyRef Name="DC_Id" />
+      </Principal>
+      <Dependent Role="Check">
+        <PropertyRef Name="DC_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Check_Status">
+    <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+    <End Role="Check" Type="Self.Check" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="Stat_Id" />
+      </Principal>
+      <Dependent Role="Check">
+        <PropertyRef Name="Status_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DastehCheck_Account">
+    <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+    <End Role="DastehCheck" Type="Self.DastehCheck" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="Hesab_Id" />
+      </Principal>
+      <Dependent Role="DastehCheck">
+        <PropertyRef Name="DC_Hesab_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DastehCheck_PrintFormat">
+    <End Role="PrintFormat" Type="Self.PrintFormat" Multiplicity="0..1" />
+    <End Role="DastehCheck" Type="Self.DastehCheck" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PrintFormat">
+        <PropertyRef Name="PF_Id" />
+      </Principal>
+      <Dependent Role="DastehCheck">
+        <PropertyRef Name="Print_Formate_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <!--Errors Found During Generation:
+error 6004: The table 'CHECK_PRINT.dbo.PrintFormatDimention' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_PrintFormatDimention_PrintFormat" />-->
+  <EntityContainer Name="CHECK_PRINTModelStoreContainer">
+    <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Bank" EntityType="Self.Bank" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Check" EntityType="Self.Check" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CheckDoc" EntityType="Self.CheckDoc" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DastehCheck" EntityType="Self.DastehCheck" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PrintFormat" EntityType="Self.PrintFormat" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Reciver" EntityType="Self.Reciver" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Account_Bank1" Association="Self.FK_Account_Bank1">
+      <End Role="Bank" EntitySet="Bank" />
+      <End Role="Account" EntitySet="Account" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Check_DastehCheck" Association="Self.FK_Check_DastehCheck">
+      <End Role="DastehCheck" EntitySet="DastehCheck" />
+      <End Role="Check" EntitySet="Check" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Check_Status" Association="Self.FK_Check_Status">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Check" EntitySet="Check" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DastehCheck_Account" Association="Self.FK_DastehCheck_Account">
+      <End Role="Account" EntitySet="Account" />
+      <End Role="DastehCheck" EntitySet="DastehCheck" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DastehCheck_PrintFormat" Association="Self.FK_DastehCheck_PrintFormat">
+      <End Role="PrintFormat" EntitySet="PrintFormat" />
+      <End Role="DastehCheck" EntitySet="DastehCheck" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

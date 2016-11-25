@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CHECK_PRINTModelStoreContainer" CdmEntityContainer="CHECK_PRINTEntities">
+    <EntitySetMapping Name="Account">
+      <EntityTypeMapping TypeName="CHECK_PRINTModel.Account">
+        <MappingFragment StoreEntitySet="Account">
+          <ScalarProperty Name="Hesab_Id" ColumnName="Hesab_Id" />
+          <ScalarProperty Name="Bank_id" ColumnName="Bank_id" />
+          <ScalarProperty Name="Hesab_Name" ColumnName="Hesab_Name" />
+          <ScalarProperty Name="Hesab_Number" ColumnName="Hesab_Number" />
+          <ScalarProperty Name="Branch_Name" ColumnName="Branch_Name" />
+          <ScalarProperty Name="Branch_Tel" ColumnName="Branch_Tel" />
+          <ScalarProperty Name="Branch_Adress" ColumnName="Branch_Adress" />
+          <ScalarProperty Name="Meli_Code" ColumnName="Meli_Code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bank">
+      <EntityTypeMapping TypeName="CHECK_PRINTModel.Bank">
+        <MappingFragment StoreEntitySet="Bank">
+          <ScalarProperty Name="Bank_Id" ColumnName="Bank_Id" />
+          <ScalarProperty Name="Bank_Name" ColumnName="Bank_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Check">
+      <EntityTypeMapping TypeName="CHECK_PRINTModel.Check">
+        <MappingFragment StoreEntitySet="Check">
+          <ScalarProperty Name="Check_Id" ColumnName="Check_Id" />
+          <ScalarProperty Name="DC_Id" ColumnName="DC_Id" />
+          <ScalarProperty Name="Status_Id" ColumnName="Status_Id" />
+          <ScalarProperty Name="Serial" ColumnName="Serial" />
+          <ScalarProperty Name="SDate" ColumnName="SDate" />
+          <ScalarProperty Name="RDate" ColumnName="RDate" />
+          <ScalarProperty Name="Darvajh" ColumnName="Darvajh" />
+          <ScalarProperty Name="Mablagh" ColumnName="Mablagh" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CheckDoc">
+      <EntityTypeMapping TypeName="CHECK_PRINTModel.CheckDoc">
+        <MappingFragment StoreEntitySet="CheckDoc">
+          <ScalarProperty Name="Shc_Id" ColumnName="Shc_Id" />
+          <ScalarProperty Name="Shc_Doc" ColumnName="Shc-Doc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DastehCheck">
+      <EntityTypeMapping TypeName="CHECK_PRINTModel.DastehCheck">
+        <MappingFragment StoreEntitySet="DastehCheck">
+          <ScalarProperty Name="DC_Id" ColumnName="DC_Id" />
+          <ScalarProperty Name="DC_GSerial" ColumnName="DC_GSerial" />
+          <ScalarProperty Name="DC_Hesab_Id" ColumnName="DC_Hesab_Id" />
+          <ScalarProperty Name="DC_Start" ColumnName="DC_Start" />
+          <ScalarProperty Name="DC_End" ColumnName="DC_End" />
+          <ScalarProperty Name="Print_Formate_Id" ColumnName="Print_Formate_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PrintFormat">
+      <EntityTypeMapping TypeName="CHECK_PRINTModel.PrintFormat">
+        <MappingFragment StoreEntitySet="PrintFormat">
+          <ScalarProperty Name="PF_Id" ColumnName="PF_Id" />
+          <ScalarProperty Name="PF_Name" ColumnName="PF_Name" />
+          <ScalarProperty Name="Pf_Pic" ColumnName="Pf_Pic" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reciver">
+      <EntityTypeMapping TypeName="CHECK_PRINTModel.Reciver">
+        <MappingFragment StoreEntitySet="Reciver">
+          <ScalarProperty Name="Riciver_Id" ColumnName="Riciver_Id" />
+          <ScalarProperty Name="Reciver_Name" ColumnName="Reciver_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Status">
+      <EntityTypeMapping TypeName="CHECK_PRINTModel.Status">
+        <MappingFragment StoreEntitySet="Status">
+          <ScalarProperty Name="Stat_Id" ColumnName="Stat_Id" />
+          <ScalarProperty Name="Stat_Name" ColumnName="Stat_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="CHECK_PRINTModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+          <ScalarProperty Name="User_name" ColumnName="User_name" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

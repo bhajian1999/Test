@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CHECK_PRINTModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="CHECK_PRINTModelStoreContainer">
+    <EntitySet Name="Account" EntityType="CHECK_PRINTModel.Store.Account" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Bank" EntityType="CHECK_PRINTModel.Store.Bank" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Check" EntityType="CHECK_PRINTModel.Store.Check" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CheckDoc" EntityType="CHECK_PRINTModel.Store.CheckDoc" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DastehCheck" EntityType="CHECK_PRINTModel.Store.DastehCheck" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PrintFormat" EntityType="CHECK_PRINTModel.Store.PrintFormat" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Reciver" EntityType="CHECK_PRINTModel.Store.Reciver" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Status" EntityType="CHECK_PRINTModel.Store.Status" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="User" EntityType="CHECK_PRINTModel.Store.User" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PrintFormatDimention" EntityType="CHECK_PRINTModel.Store.PrintFormatDimention" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="sysdiagrams" EntityType="CHECK_PRINTModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Account_Bank1" Association="CHECK_PRINTModel.Store.FK_Account_Bank1">
+      <End Role="Bank" EntitySet="Bank" />
+      <End Role="Account" EntitySet="Account" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DastehCheck_Account" Association="CHECK_PRINTModel.Store.FK_DastehCheck_Account">
+      <End Role="Account" EntitySet="Account" />
+      <End Role="DastehCheck" EntitySet="DastehCheck" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Check_DastehCheck" Association="CHECK_PRINTModel.Store.FK_Check_DastehCheck">
+      <End Role="DastehCheck" EntitySet="DastehCheck" />
+      <End Role="Check" EntitySet="Check" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Check_Status" Association="CHECK_PRINTModel.Store.FK_Check_Status">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Check" EntitySet="Check" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Check_User" Association="CHECK_PRINTModel.Store.FK_Check_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Check" EntitySet="Check" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DastehCheck_PrintFormat" Association="CHECK_PRINTModel.Store.FK_DastehCheck_PrintFormat">
+      <End Role="PrintFormat" EntitySet="PrintFormat" />
+      <End Role="DastehCheck" EntitySet="DastehCheck" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PrintFormatDimention_PrintFormat" Association="CHECK_PRINTModel.Store.FK_PrintFormatDimention_PrintFormat">
+      <End Role="PrintFormat" EntitySet="PrintFormat" />
+      <End Role="PrintFormatDimention" EntitySet="PrintFormatDimention" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="Hesab_Id" />
+    </Key>
+    <Property Name="Hesab_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Bank_id" Type="int" Nullable="true" />
+    <Property Name="Hesab_Name" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Hesab_Number" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Branch_Name" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Branch_Tel" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Branch_Adress" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Meli_Code" Type="nvarchar" Nullable="true" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Bank">
+    <Key>
+      <PropertyRef Name="Bank_Id" />
+    </Key>
+    <Property Name="Bank_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Bank_Name" Type="nvarchar" Nullable="true" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Check">
+    <Key>
+      <PropertyRef Name="Check_Id" />
+    </Key>
+    <Property Name="Check_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DC_Id" Type="int" Nullable="true" />
+    <Property Name="Status_Id" Type="int" Nullable="true" />
+    <Property Name="Serial" Type="int" Nullable="true" />
+    <Property Name="SDate" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="RDate" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Darvajh" Type="nvarchar" Nullable="true" MaxLength="500" />
+    <Property Name="Mablagh" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="User_id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="CheckDoc">
+    <Key>
+      <PropertyRef Name="Shc_Id" />
+    </Key>
+    <Property Name="Shc_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Shc_Doc" Type="nvarchar" Nullable="true" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="DastehCheck">
+    <Key>
+      <PropertyRef Name="DC_Id" />
+    </Key>
+    <Property Name="DC_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DC_Name" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="DC_GSerial" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="DC_Hesab_Id" Type="int" Nullable="true" />
+    <Property Name="DC_Start" Type="int" Nullable="true" />
+    <Property Name="DC_End" Type="int" Nullable="true" />
+    <Property Name="Print_Formate_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="PrintFormat">
+    <Key>
+      <PropertyRef Name="PF_Id" />
+    </Key>
+    <Property Name="PF_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PF_Name" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Pf_Pic" Type="varbinary(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Reciver">
+    <Key>
+      <PropertyRef Name="Riciver_Id" />
+    </Key>
+    <Property Name="Riciver_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Reciver_Name" Type="nvarchar" Nullable="true" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="Stat_Id" />
+    </Key>
+    <Property Name="Stat_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Stat_Name" Type="nvarchar" Nullable="true" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="User_Id" />
+    </Key>
+    <Property Name="User_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="User_name" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Name_Family" Type="nvarchar" Nullable="true" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="PrintFormatDimention">
+    <Key>
+      <PropertyRef Name="Pfd_id" />
+    </Key>
+    <Property Name="Pfd_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Pfd_PF_id" Type="int" Nullable="true" />
+    <Property Name="Pfd_Row" Type="int" Nullable="true" />
+    <Property Name="Pfd_x" Type="int" Nullable="true" />
+    <Property Name="Pfd_y" Type="int" Nullable="true" />
+    <Property Name="Pfd_Valid" Type="bit" Nullable="true" />
+    <Property Name="Pfd_Font" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Pfd_Size" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" Nullable="true" />
+    <Property Name="definition" Type="varbinary(max)" Nullable="true" />
+  </EntityType>
+  <Association Name="FK_Account_Bank1">
+    <End Role="Bank" Type="CHECK_PRINTModel.Store.Bank" Multiplicity="0..1" />
+    <End Role="Account" Type="CHECK_PRINTModel.Store.Account" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bank">
+        <PropertyRef Name="Bank_Id" />
+      </Principal>
+      <Dependent Role="Account">
+        <PropertyRef Name="Bank_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DastehCheck_Account">
+    <End Role="Account" Type="CHECK_PRINTModel.Store.Account" Multiplicity="0..1" />
+    <End Role="DastehCheck" Type="CHECK_PRINTModel.Store.DastehCheck" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="Hesab_Id" />
+      </Principal>
+      <Dependent Role="DastehCheck">
+        <PropertyRef Name="DC_Hesab_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Check_DastehCheck">
+    <End Role="DastehCheck" Type="CHECK_PRINTModel.Store.DastehCheck" Multiplicity="0..1" />
+    <End Role="Check" Type="CHECK_PRINTModel.Store.Check" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DastehCheck">
+        <PropertyRef Name="DC_Id" />
+      </Principal>
+      <Dependent Role="Check">
+        <PropertyRef Name="DC_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Check_Status">
+    <End Role="Status" Type="CHECK_PRINTModel.Store.Status" Multiplicity="0..1" />
+    <End Role="Check" Type="CHECK_PRINTModel.Store.Check" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="Stat_Id" />
+      </Principal>
+      <Dependent Role="Check">
+        <PropertyRef Name="Status_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Check_User">
+    <End Role="User" Type="CHECK_PRINTModel.Store.User" Multiplicity="0..1" />
+    <End Role="Check" Type="CHECK_PRINTModel.Store.Check" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="User_Id" />
+      </Principal>
+      <Dependent Role="Check">
+        <PropertyRef Name="User_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DastehCheck_PrintFormat">
+    <End Role="PrintFormat" Type="CHECK_PRINTModel.Store.PrintFormat" Multiplicity="0..1" />
+    <End Role="DastehCheck" Type="CHECK_PRINTModel.Store.DastehCheck" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PrintFormat">
+        <PropertyRef Name="PF_Id" />
+      </Principal>
+      <Dependent Role="DastehCheck">
+        <PropertyRef Name="Print_Formate_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PrintFormatDimention_PrintFormat">
+    <End Role="PrintFormat" Type="CHECK_PRINTModel.Store.PrintFormat" Multiplicity="1" />
+    <End Role="PrintFormatDimention" Type="CHECK_PRINTModel.Store.PrintFormatDimention" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="PrintFormat">
+        <PropertyRef Name="PF_Id" />
+      </Principal>
+      <Dependent Role="PrintFormatDimention">
+        <PropertyRef Name="Pfd_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CHECK_PRINTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="Hesab_Id" />
+    </Key>
+    <Property Name="Hesab_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Bank_id" Type="Int32" />
+    <Property Name="Hesab_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Hesab_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Branch_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Branch_Tel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Branch_Adress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Meli_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Bank" Relationship="Self.FK_Account_Bank1" FromRole="Account" ToRole="Bank" />
+    <NavigationProperty Name="DastehCheck" Relationship="Self.FK_DastehCheck_Account" FromRole="Account" ToRole="DastehCheck" />
+  </EntityType>
+  <EntityType Name="Bank">
+    <Key>
+      <PropertyRef Name="Bank_Id" />
+    </Key>
+    <Property Name="Bank_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Bank_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Account" Relationship="Self.FK_Account_Bank1" FromRole="Bank" ToRole="Account" />
+  </EntityType>
+  <EntityType Name="Check">
+    <Key>
+      <PropertyRef Name="Check_Id" />
+    </Key>
+    <Property Name="Check_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DC_Id" Type="Int32" />
+    <Property Name="Status_Id" Type="Int32" />
+    <Property Name="Serial" Type="Int32" />
+    <Property Name="SDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Darvajh" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Mablagh" Type="Int32" />
+    <NavigationProperty Name="DastehCheck" Relationship="Self.FK_Check_DastehCheck" FromRole="Check" ToRole="DastehCheck" />
+    <NavigationProperty Name="Status" Relationship="Self.FK_Check_Status" FromRole="Check" ToRole="Status" />
+  </EntityType>
+  <EntityType Name="CheckDoc">
+    <Key>
+      <PropertyRef Name="Shc_Id" />
+    </Key>
+    <Property Name="Shc_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Shc_Doc" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="DastehCheck">
+    <Key>
+      <PropertyRef Name="DC_Id" />
+    </Key>
+    <Property Name="DC_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DC_GSerial" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DC_Hesab_Id" Type="Int32" />
+    <Property Name="DC_Start" Type="Int32" />
+    <Property Name="DC_End" Type="Int32" />
+    <Property Name="Print_Formate_Id" Type="Int32" />
+    <NavigationProperty Name="Account" Relationship="Self.FK_DastehCheck_Account" FromRole="DastehCheck" ToRole="Account" />
+    <NavigationProperty Name="Check" Relationship="Self.FK_Check_DastehCheck" FromRole="DastehCheck" ToRole="Check" />
+    <NavigationProperty Name="PrintFormat" Relationship="Self.FK_DastehCheck_PrintFormat" FromRole="DastehCheck" ToRole="PrintFormat" />
+  </EntityType>
+  <EntityType Name="PrintFormat">
+    <Key>
+      <PropertyRef Name="PF_Id" />
+    </Key>
+    <Property Name="PF_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PF_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Pf_Pic" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="DastehCheck" Relationship="Self.FK_DastehCheck_PrintFormat" FromRole="PrintFormat" ToRole="DastehCheck" />
+  </EntityType>
+  <EntityType Name="Reciver">
+    <Key>
+      <PropertyRef Name="Riciver_Id" />
+    </Key>
+    <Property Name="Riciver_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Reciver_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="Stat_Id" />
+    </Key>
+    <Property Name="Stat_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Stat_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Check" Relationship="Self.FK_Check_Status" FromRole="Status" ToRole="Check" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="User_Id" />
+    </Key>
+    <Property Name="User_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="User_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_Account_Bank1">
+    <End Role="Bank" Type="Self.Bank" Multiplicity="0..1" />
+    <End Role="Account" Type="Self.Account" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bank">
+        <PropertyRef Name="Bank_Id" />
+      </Principal>
+      <Dependent Role="Account">
+        <PropertyRef Name="Bank_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DastehCheck_Account">
+    <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+    <End Role="DastehCheck" Type="Self.DastehCheck" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="Hesab_Id" />
+      </Principal>
+      <Dependent Role="DastehCheck">
+        <PropertyRef Name="DC_Hesab_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Check_DastehCheck">
+    <End Role="DastehCheck" Type="Self.DastehCheck" Multiplicity="0..1" />
+    <End Role="Check" Type="Self.Check" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DastehCheck">
+        <PropertyRef Name="DC_Id" />
+      </Principal>
+      <Dependent Role="Check">
+        <PropertyRef Name="DC_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Check_Status">
+    <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+    <End Role="Check" Type="Self.Check" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="Stat_Id" />
+      </Principal>
+      <Dependent Role="Check">
+        <PropertyRef Name="Status_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DastehCheck_PrintFormat">
+    <End Role="PrintFormat" Type="Self.PrintFormat" Multiplicity="0..1" />
+    <End Role="DastehCheck" Type="Self.DastehCheck" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PrintFormat">
+        <PropertyRef Name="PF_Id" />
+      </Principal>
+      <Dependent Role="DastehCheck">
+        <PropertyRef Name="Print_Formate_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CHECK_PRINTEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Account" EntityType="Self.Account" />
+    <EntitySet Name="Bank" EntityType="Self.Bank" />
+    <EntitySet Name="Check" EntityType="Self.Check" />
+    <EntitySet Name="CheckDoc" EntityType="Self.CheckDoc" />
+    <EntitySet Name="DastehCheck" EntityType="Self.DastehCheck" />
+    <EntitySet Name="PrintFormat" EntityType="Self.PrintFormat" />
+    <EntitySet Name="Reciver" EntityType="Self.Reciver" />
+    <EntitySet Name="Status" EntityType="Self.Status" />
+    <EntitySet Name="User" EntityType="Self.User" />
+    <AssociationSet Name="FK_Account_Bank1" Association="Self.FK_Account_Bank1">
+      <End Role="Bank" EntitySet="Bank" />
+      <End Role="Account" EntitySet="Account" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DastehCheck_Account" Association="Self.FK_DastehCheck_Account">
+      <End Role="Account" EntitySet="Account" />
+      <End Role="DastehCheck" EntitySet="DastehCheck" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Check_DastehCheck" Association="Self.FK_Check_DastehCheck">
+      <End Role="DastehCheck" EntitySet="DastehCheck" />
+      <End Role="Check" EntitySet="Check" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Check_Status" Association="Self.FK_Check_Status">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Check" EntitySet="Check" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DastehCheck_PrintFormat" Association="Self.FK_DastehCheck_PrintFormat">
+      <End Role="PrintFormat" EntitySet="PrintFormat" />
+      <End Role="DastehCheck" EntitySet="DastehCheck" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
